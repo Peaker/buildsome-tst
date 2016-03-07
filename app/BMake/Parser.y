@@ -73,7 +73,7 @@ Statement :: {Maybe Statement}
       | ifneq IfStmt                   { Just $ ($2) $ IfCmp IfNotEquals }
       | OTHER MW "=" MW TgtExprListE   { Just $ Assign $1 AssignNormal $5 }
       | OTHER MW "?=" MW TgtExprListE  { Just $ Assign $1 AssignConditional $5 }
-      | ExprList MW ":" MW TgtExprListE TgtScriptE
+      | TgtExprListE MW ":" MW TgtExprListE TgtScriptE
                                        { Just $ Target $1 $5 $6 }
 
 TgtScriptE :: {[[Expr]]}
