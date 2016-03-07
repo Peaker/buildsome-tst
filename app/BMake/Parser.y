@@ -67,14 +67,14 @@ MW    :: {DList ByteString}
 
 Statement :: {Maybe Statement}
       : local MW "{" StatementsDList local MW "}" { Just $ Local (DList.toList $4) }
-      | OTHER MW "=" MW TgtExprListE   { Just $ Assign $1 AssignNormal $5 }
-      | OTHER MW "?=" MW TgtExprListE  { Just $ Assign $1 AssignConditional $5 }
-      | ExprList MW ":" MW TgtExprListE TgtScriptE
-                                       { Just $ Target $1 $5 $6 }
       | include MW OTHER               { Just $ Include $3 }
       | SPACES                         { Nothing }
       | ifeq IfStmt                    { Just $ ($2) $ IfCmp IfEquals }
       | ifneq IfStmt                   { Just $ ($2) $ IfCmp IfNotEquals }
+      | OTHER MW "=" MW TgtExprListE   { Just $ Assign $1 AssignNormal $5 }
+      | OTHER MW "?=" MW TgtExprListE  { Just $ Assign $1 AssignConditional $5 }
+      | ExprList MW ":" MW TgtExprListE TgtScriptE
+                                       { Just $ Target $1 $5 $6 }
 
 TgtScriptE :: {[[Expr]]}
       :                                { [] }
