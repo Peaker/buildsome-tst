@@ -74,7 +74,7 @@ parse cache rootDir =
         let dirs = Dirs rootDir (FilePath.takeDirectory makefile)
         res <- parseSingle content
         case res of
-            Left x -> fail $ show x
+            Left x -> fail $ "Error at " ++ makefile ++ ": " ++ show x
             Right ast -> do
                 ast' <- Makefile <$> handleIncludes cache dirs (unit ast)
                 return ast'
